@@ -1,4 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+import time
 import unittest
 
 # 1. Tests are organized into classes, which inherit from "unittest.TestCase"
@@ -14,6 +17,20 @@ import unittest
 #		Using it as reminder to finis the test
 
 
+# Selenium provides several methods to examine web pages:
+#	find_element_by_tag_name, find_element_by_id,
+#	and find_elements_by_tag_name (returns several el)
+
+# also use 'send_keys', which is seleniums way of typing into input elements
+
+# 'Keys' class lets us send special keys like Enter
+
+# When we hit enter, page will referesh. time.sleep is there to make sure
+#	the browser has finished reloading before we make any assertions about the
+#	new page. This is called an "explicit wait"
+
+
+
 class NewVisitorTest(unittest.TestCase):
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -27,18 +44,39 @@ class NewVisitorTest(unittest.TestCase):
 
 		# check todo is in page title
 		self.assertIn('To-Do', self.browser.title)
-		self.fail('Finish the test!')
+		
+		header_text = self.browser.find_element_by_tag_name('h1').text
+		self.assertIn('To-Do', header_text)
 
-		# field exists to enter to-do item
+		# check for input box
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		self.aassertEqual(
+			inputbox.get_attribute('placeholder'),
+			'Enter a to-do item'
+		)
 
 		# enters "Buy peacock feathers"
+		inputbox.send_keys('Buy peacock feathers')
+
 		# page will update after entering
 		# page now lists "1: Buy peacock feathers" as an item in todo list
+		inputbox.send_keys(Keys.ENTER)
+
+		time.sleep(1)
+
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertTrue(
+			any(row.text == '1: Buy peacock feathers' for row in rows)
+		)
 
 		# another text box exists still
 		# enters: "Use peacock feathers to make a fly"
 
 		# visit url again - list still exists
+
+
+		self.fail('Finish the test!')
 
 		# exit site
 		browser.quit()
