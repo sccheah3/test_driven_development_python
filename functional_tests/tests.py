@@ -1,8 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 import time
-import unittest
+# import unittest
 
 # 1. Tests are organized into classes, which inherit from "unittest.TestCase"
 # 2. main body of test is "test_can_start_a_list_and_retrieve_it_later". Any method
@@ -31,7 +32,8 @@ import unittest
 
 
 
-class NewVisitorTest(unittest.TestCase):
+# class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 	def setUp(self):
 		self.browser = webdriver.Firefox()
 
@@ -45,7 +47,10 @@ class NewVisitorTest(unittest.TestCase):
 
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# check out homepage
-		self.browser.get('http://localhost:8000')
+		# self.browser.get('http://localhost:8000')
+		# instead of hardcoding visit to localhost:8000, LiverServerTestCase gives
+		#	an attribute called live_server_url
+		self.browser.get(self.live_server_url)	
 
 		# check todo is in page title
 		self.assertIn('To-Do', self.browser.title)
@@ -94,5 +99,5 @@ class NewVisitorTest(unittest.TestCase):
 		# exit site
 		browser.quit()
 
-if __name__ == "__main__":
-	unittest.main()
+# if __name__ == "__main__":
+#	unittest.main()
