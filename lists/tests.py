@@ -6,6 +6,18 @@ from lists.views import home_page
 
 from lists.models import Item
 
+# uses test client which is a python class that acts as a dummy Web browser,
+#   allowing us to test views and interact with app programatically 
+#  Able to simulate GET and POST req on a URL and observe response
+#   see chain of redirects and check the URL and status code at each step
+#   Test that a given req is rendered by a specific django template, with a template context
+#       that contains certain values
+
+# Not to be used as a replacement for selenium. Django's test client has diff focus:
+#   use Django test client to est that correct template is rendered and that the template
+#       is passed the correct context data
+#   Use in-browser frameworks like selenium to test RENDERED HTML and the BEHAVIOR
+#       of the web pages. LiveServerTestCase provides support for this
 
 class HomePageTest(TestCase):
 
