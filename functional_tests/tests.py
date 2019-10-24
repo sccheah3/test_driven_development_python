@@ -125,7 +125,7 @@ class NewVisitorTest(LiveServerTestCase):
 		# use new browser session to make sure that no info from prev
 		# user is coming through fro mcookies etc
 		self.browser.quit()
-		self.browser = webdriver.FireFox()
+		self.browser = webdriver.Firefox()
 
 		# new user visits homepage. 
 		self.browser.get(self.live_server_url)
