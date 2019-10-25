@@ -9,9 +9,12 @@ def home_page(request):
 	# return render(request, 'home.html', {'items': Item.objects.all()})
 
 def view_list(request, list_id):
+	# list_ = List.objects.get(id=list_id)
+	# items = Item.objects.filter(list=list_)
+	# return render(request, 'list.html', {'items': items})
+
 	list_ = List.objects.get(id=list_id)
-	items = Item.objects.filter(list=list_)
-	return render(request, 'list.html', {'items': items})
+	return render(request, 'list.html', {'list': list_})
 
 def new_list(request):
 	if request.method == "POST":
