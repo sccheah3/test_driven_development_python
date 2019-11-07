@@ -6,6 +6,8 @@ from lists.views import home_page
 
 from lists.models import Item, List
 
+# methods are to test one specific thing
+# classes is for testing something broader, requiring testing multiple related things
 
 class HomePageTest(TestCase):
 
