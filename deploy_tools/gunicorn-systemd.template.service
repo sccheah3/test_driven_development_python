@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn server for DOMAIN
+
+[Service]
+Restart=on-failure
+User=sccheah
+WorkingDirectory=/home/sccheah/sites/DOMAIN
+EnvironmentFile=/home/sccheah/sites/DOMAIN/.env
+
+ExecStart=[PATH_TO_PIPENV]/gunicorn \
+			--bind unix:/tmp/DOMAIN.socket \
+			superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
