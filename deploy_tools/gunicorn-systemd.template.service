@@ -7,7 +7,7 @@ User=sccheah
 WorkingDirectory=/home/sccheah/sites/DOMAIN
 EnvironmentFile=/home/sccheah/sites/DOMAIN/.env
 
-ExecStart=[PATH_TO_PIPENV]/gunicorn \
+ExecStart=/home/sccheah/sites/DOMAIN/virtualenv/bin/gunicorn \
 			--bind unix:/tmp/DOMAIN.socket \
 			superlists.wsgi:application
 

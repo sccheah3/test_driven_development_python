@@ -35,3 +35,20 @@ Assume we have a user account at /home/username
 		├── db.sqlite3     
 		├── etc
 
+## Provisioning and Deployment Procedures:
+# Provisioning
+1. Assume we have a user account and home folder
+2. $ add-apt-repository ppa:deadsnakes/ppa && apt update
+3. apt install nginx git python3.6 python3.6-venv
+4. Add Nginx config for virtual host
+5. Add Systemd job for Gunicorn (including unique SECRET_KEY)
+
+# Deployment
+1. Create directory in ~/sites
+2. Pull down source code
+3. Start virtualenv in *virtualenv* 
+4. $ pip install -r requirements.txt
+5. $ python manage.py migrate [--noinput] --- for database
+6. $ python manage.py collectstatic [--noinput] --- for staticfiles
+7. Restart Gunicorn job
+8. Run FTs to check everything works
